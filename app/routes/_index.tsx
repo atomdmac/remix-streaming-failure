@@ -13,7 +13,9 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const loader = () => {
   const promise = delay(1000).then(() => {
-    return { message: "Hello from the server!" };
+    const data = { message: "Hello from the server!" };
+    console.log('Server Resolved: ', data);
+    return data;
   });
 
   return defer({
@@ -23,6 +25,7 @@ export const loader = () => {
 
 export default function Index() {
   const data = useLoaderData<typeof loader>();
+  data.promise.then((data) => console.log('Client Resolved: ', data));
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
       <h1>Welcome to Remix</h1>
